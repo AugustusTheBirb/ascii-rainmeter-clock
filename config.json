@@ -1,0 +1,21 @@
+{
+  "preset": "original_violet",
+  "apply_to": {
+    "wallpaper": true,
+    "digits": true
+  },
+  "resample": "lanczos_quantize",
+  "rainmeter": {
+    "TrimOne": 0,
+    "Tracking": 0,
+    "SepWidth": 40,
+    "Scale": 1,
+    "Debug": 0,
+    "DebugSecPerMin": 5
+  },
+  "glyphs": {
+    "1": "1_small_alt.png",
+    "5": "5-alt-october-3.png",
+    "2": "2-alt-october.png"
+  }
+}
