@@ -2,11 +2,8 @@ __pycache__/
 *.pyc
 
 # Built from the source art -- see the README
+build/
 rainmeter/AsciiClock/@Resources/digits/
-ring_source.png
-template.png
-wallpaper_centered.png
-wallpaper_screen.png
 
 # Local art, never published
-wallpaper_personal.png
+art/wallpaper_personal.png

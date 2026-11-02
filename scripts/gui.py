@@ -1,6 +1,6 @@
 """Control panel for the ASCII clock: colours, spacing, wallpaper.
 
-Run with:  python gui.py     (or pythonw gui.py for no console window)
+Run with:  python scripts/gui.py     (or pythonw for no console window)
 
 The preview is live and costs nothing -- it recolours a cached crop of the
 source art in memory, so you can flick through presets before committing to
@@ -245,7 +245,7 @@ class App(tk.Tk):
                      lambda _e, digit=d: self._on_glyph(digit))
             self.glyph_boxes[d] = box
         ttk.Label(gl, foreground="#666",
-                  text="Drop 80x80 PNGs into source_digits/ -- a file offers "
+                  text="Drop 80x80 PNGs into art/source_digits/ -- a file offers "
                        "the first digit in its name.").grid(
             row=2, column=0, columnspan=5, sticky="w", pady=(6, 0))
 
@@ -579,7 +579,7 @@ class App(tk.Tk):
                 self.config_data = palette.load_config()
                 self._scan_glyphs()
                 for d, box in self.glyph_boxes.items():
-                    # picks up PNGs dropped into source_digits/ while running
+                    # picks up PNGs dropped into art/source_digits/ while running
                     box["values"] = self.glyph_options[d]
                     self.glyph_vars[d].set(self.glyph_choice[d])
                 self._reload_digits()

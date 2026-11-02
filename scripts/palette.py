@@ -14,9 +14,9 @@ theming cannot accumulate error. The digits are recoloured in place, which is
 safe for the same reason -- the mapping is a permutation of ramp positions.
 
 Usage:
-    python palette.py extract          rewrite palettes.json from the art
-    python palette.py list             show every preset
-    python palette.py apply <name>     retheme and set the wallpaper
+    python scripts/palette.py extract          rewrite palettes.json from the art
+    python scripts/palette.py list             show every preset
+    python scripts/palette.py apply <name>     retheme and set the wallpaper
 """
 
 import argparse
@@ -28,17 +28,17 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-ROOT = Path(__file__).parent
-PALETTES = ROOT / "palettes.json"
-CONFIG = ROOT / "config.json"
+ROOT = Path(__file__).parent.parent
+PALETTES = ROOT / "settings" / "palettes.json"
+CONFIG = ROOT / "settings" / "config.json"
 DIGITS_DIR = ROOT / "rainmeter" / "AsciiClock" / "@Resources" / "digits"
 # Local art, never published, wins over the repo's wallpaper.png. It has to share
 # that file's ramp and ring centre, because palettes.json holds only one of each.
-WALL_SRC = ROOT / "wallpaper_personal.png"
+WALL_SRC = ROOT / "art" / "wallpaper_personal.png"
 if not WALL_SRC.exists():
-    WALL_SRC = ROOT / "wallpaper.png"
-WALL_1080 = ROOT / "wallpaper_centered.png"
-WALL_SCREEN = ROOT / "wallpaper_screen.png"
+    WALL_SRC = ROOT / "art" / "wallpaper.png"
+WALL_1080 = ROOT / "build" / "wallpaper_centered.png"
+WALL_SCREEN = ROOT / "build" / "wallpaper_screen.png"
 
 SCREEN = (2880, 1800)
 RAMP_LEN = 7
@@ -56,7 +56,7 @@ DEFAULT_CONFIG = {
     "resample": "lanczos_quantize",
     # Which glyph each digit uses. "sheet" (or simply being absent) means the
     # cell sliced from 023456789.png; anything else names a file in
-    # source_digits/. Digit 1 has no sheet cell, so it must name a file.
+    # art/source_digits/. Digit 1 has no sheet cell, so it must name a file.
     "glyphs": {
         "1": "1_small_alt.png",
         "2": "2-alt-october.png",
@@ -298,6 +298,7 @@ def theme_wallpaper(dst_ramp, dst_bg=(0, 0, 0), resample="lanczos_quantize"):
     dx, dy = round(w / 2 - cx), round(h / 2 - cy)
     centred = Image.new("RGB", (w, h), dst_bg)
     centred.paste(themed, (dx, dy))
+    WALL_1080.parent.mkdir(exist_ok=True)
     centred.save(WALL_1080)
 
     sw, sh = SCREEN

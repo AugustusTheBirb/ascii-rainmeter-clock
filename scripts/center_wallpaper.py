@@ -22,8 +22,9 @@ from pathlib import Path
 
 from PIL import Image
 
-ROOT = Path(__file__).parent
-SRC = ROOT / "wallpaper.png"
+ROOT = Path(__file__).parent.parent
+SRC = ROOT / "art" / "wallpaper.png"
+BUILD = ROOT / "build"
 SCREEN = (2880, 1800)
 
 
@@ -80,6 +81,7 @@ def ring_centre(img):
 
 
 def main():
+    BUILD.mkdir(exist_ok=True)
     src = Image.open(SRC).convert("RGB")
     w, h = src.size
     print(f"source {SRC.name} {w}x{h}")
@@ -91,7 +93,7 @@ def main():
     dx, dy = round(w / 2 - cx), round(h / 2 - cy)
     same = Image.new("RGB", (w, h), (0, 0, 0))
     same.paste(src, (dx, dy))
-    same.save(ROOT / "wallpaper_centered.png")
+    same.save(BUILD / "wallpaper_centered.png")
     print(f"\nwallpaper_centered.png  {w}x{h}, shifted ({dx:+d}, {dy:+d})")
     ring_centre(same)
 
@@ -103,7 +105,7 @@ def main():
     shot = Image.new("RGB", SCREEN, (0, 0, 0))
     px_, py_ = round(sw / 2 - sx), round(sh / 2 - sy)
     shot.paste(scaled, (px_, py_))
-    shot.save(ROOT / "wallpaper_screen.png")
+    shot.save(BUILD / "wallpaper_screen.png")
     print(f"\nwallpaper_screen.png    {sw}x{sh}, scaled {s:.4f}x, "
           f"pasted at ({px_}, {py_})")
     ring_centre(shot)

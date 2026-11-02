@@ -3,7 +3,7 @@
 Pipeline:
   1. slice the sheet   -- 80x80 cells separated by 71px gaps, glyphs 2..9,0
   2. apply choices     -- per digit, either the sliced cell or one of the
-                          standalone glyphs in source_digits/. "1" has no cell
+                          standalone glyphs in art/source_digits/. "1" has no cell
                           on the sheet and must come from a file.
   3. key out the black -- exactly (0,0,0) becomes fully transparent, so
                           kerned/overlapping cells do not paint over their
@@ -19,9 +19,9 @@ from pathlib import Path
 
 from PIL import Image
 
-ROOT = Path(__file__).parent
-SHEET = ROOT / "023456789.png"
-SOURCES = ROOT / "source_digits"
+ROOT = Path(__file__).parent.parent
+SHEET = ROOT / "art" / "023456789.png"
+SOURCES = ROOT / "art" / "source_digits"
 OUT = ROOT / "rainmeter" / "AsciiClock" / "@Resources" / "digits"
 
 CELL = 80

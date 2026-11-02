@@ -32,7 +32,7 @@ from pathlib import Path
 
 from PIL import Image
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).parent.parent
 DIGITS_DIR = ROOT / "rainmeter" / "AsciiClock" / "@Resources" / "digits"
 OUT = DIGITS_DIR / "morph"
 

@@ -7,8 +7,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-ROOT = Path(__file__).parent
-OUT = ROOT / "template.png"
+ROOT = Path(__file__).parent.parent
+OUT = ROOT / "build" / "template.png"
 
 WIDTH, HEIGHT = 1288, 80
 CELL = 80
@@ -26,6 +26,7 @@ def main():
         draw.rectangle((x, 0, min(x + CELL, WIDTH) - 1, HEIGHT - 1), fill=WHITE)
         x += CELL + GAP
 
+    OUT.parent.mkdir(exist_ok=True)
     img.save(OUT)
     print(f"wrote {OUT} ({img.size[0]}x{img.size[1]})")
 

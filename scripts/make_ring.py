@@ -24,9 +24,9 @@ from PIL import Image
 
 import palette
 
-ROOT = Path(__file__).parent
-OUT_ASCII = ROOT / "wallpaper.png"
-OUT_SOURCE = ROOT / "ring_source.png"
+ROOT = Path(__file__).parent.parent
+OUT_ASCII = ROOT / "art" / "wallpaper.png"
+OUT_SOURCE = ROOT / "build" / "ring_source.png"
 
 WIDTH, HEIGHT = 1920, 1080
 CELL = 8
@@ -266,6 +266,7 @@ def render_source(canvas):
 def main():
     ramp = [palette.from_hex(c) for c in
             palette.load_palettes()["sources"]["wallpaper"]["ramp"]]
+    OUT_SOURCE.parent.mkdir(exist_ok=True)
     canvas = render()
     render_ascii(canvas, ramp).save(OUT_ASCII)
     render_source(canvas).save(OUT_SOURCE)
